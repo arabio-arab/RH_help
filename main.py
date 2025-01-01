@@ -4,7 +4,7 @@ from PIL import Image  # Correct import for PIL
 import PyPDF2  # Import for handling PDF files
 
 # Set your Google API key
-google_api_key = "*************************************"
+google_api_key ="key_APi_??????????????????????????????????"
 genai.configure(api_key=google_api_key)
 
 # Title
@@ -19,18 +19,19 @@ user_input = st.text_area("What do you need to know?")
 
 # Check if a file has been uploaded and user input is provided
 if sample_file_2 is not None and user_input: 
-    model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest")# Use None with capital N
+    model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest")
+     # Use None with capital N
     if sample_file_2.type in ["image/jpeg", "image/png"]:  # Image file types
         # Open and display the uploaded image file
-        uploaded_image = Image.open(sample_file_2)
-        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+        uploaded_image_2 = Image.open(sample_file_2)
+        st.image(uploaded_image_2, caption="Uploaded Image", use_column_width=True)
 
         # Example of calling a generative model for image content.
         prompt = f"Give me information in English about: {user_input}."
-
+       
         # Generating response
-         # Adjusted function call
-        response = model.generate_content([uploaded_image, prompt])
+        response = model.generate_content([uploaded_image_2, prompt]) # Adjusted function call
+
         st.write("### Answer")
         st.markdown(response.text)  # Properly display response using markdown
 
@@ -46,9 +47,10 @@ if sample_file_2 is not None and user_input:
 
         # Create a prompt for PDF content
         prompt = f"Give me information in English about this PDF: {user_input}."
-
+        # response = genai.generate_text(prompt)
         # Generating response based on PDF content
-        response = genai.generate_text(prompt)  # Adjusted function call
+        response = model.generate_content([sample_file_2, prompt])  # Adjusted function call
+          # Adjusted function call
 
         st.write("### Answer")
-        st.markdown(response.text)  
+        st.markdown(response.text) 
